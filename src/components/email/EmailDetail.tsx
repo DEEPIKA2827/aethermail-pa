@@ -34,6 +34,7 @@ export const EmailDetail: React.FC = () => {
     addTentativeHold,
     regenerateAIDraft,
     setSelectedEmailId,
+    setMobileShowDetail,
     addToast,
   } = useEmailContext();
 
@@ -103,19 +104,20 @@ export const EmailDetail: React.FC = () => {
         {/* Left: Mobile Back button + Client tag */}
         <div className="flex items-center gap-2">
           <button
-            onClick={() => setSelectedEmailId(null)}
-            className="md:hidden flex items-center gap-1 px-2 py-1 rounded bg-[#F4F4F5] border border-[#E6E4DD] text-xs font-medium text-[#18181B]"
+            onClick={() => setMobileShowDetail(false)}
+            className="md:hidden flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#FAF9F5] border border-[#E6E4DD] text-xs font-semibold text-[#18181B] hover:bg-[#F4F4F5] transition-colors shrink-0"
+            title="Return to inbox list"
           >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Inbox</span>
+            <ArrowLeft className="w-3.5 h-3.5 text-[#18181B]" />
+            <span>← Back to Inbox</span>
           </button>
 
           <img
             src={client?.avatar}
             alt={client?.name}
-            className="w-5 h-5 rounded-full object-cover"
+            className="w-5 h-5 rounded-full object-cover hidden xs:block"
           />
-          <span className="text-xs font-medium text-[#18181B]">{client?.name}</span>
+          <span className="text-xs font-medium text-[#18181B] truncate max-w-[100px] sm:max-w-none">{client?.name}</span>
           <ProviderPill provider={selectedEmail.provider} />
         </div>
 
@@ -180,7 +182,7 @@ export const EmailDetail: React.FC = () => {
         </div>
 
         {/* 2. SLIM 2-LINE WARM CONTEXT CALLOUT STRIP */}
-        <div className="bg-[#FAF9F5] border border-[#E6E4DD] rounded-lg px-4 py-2.5 flex items-start justify-between gap-4 text-xs">
+        <div className="bg-[#FAF9F5] border border-[#E6E4DD] rounded-lg px-3.5 sm:px-4 py-2.5 flex flex-col sm:flex-row items-stretch sm:items-start justify-between gap-2.5 sm:gap-4 text-xs">
           {/* Left side: Summary + Why assigned */}
           <div className="space-y-1 flex-1 leading-relaxed">
             <p className="text-[#18181B]">
@@ -194,10 +196,10 @@ export const EmailDetail: React.FC = () => {
           </div>
 
           {/* Right side: Clean Reassign Dropdown */}
-          <div className="relative shrink-0" onClick={(e) => e.stopPropagation()}>
+          <div className="relative shrink-0 w-full sm:w-auto" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={() => setIsReassignOpen(!isReassignOpen)}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-white border border-[#E6E4DD] hover:bg-[#F4F4F5] text-xs font-medium text-[#18181B] transition-colors"
+              className="flex items-center justify-between sm:justify-start gap-1.5 w-full sm:w-auto px-2.5 py-1.5 rounded bg-white border border-[#E6E4DD] hover:bg-[#F4F4F5] text-xs font-medium text-[#18181B] transition-colors"
             >
               <span>Owner: {selectedEmail.responsibility}</span>
               <ChevronDown className="w-3.5 h-3.5 text-[#71717A]" />

@@ -25,6 +25,7 @@ export const EmailList: React.FC = () => {
     setIsSimulateModalOpen,
     isSyncing,
     isAccountSwitching,
+    setMobileShowDetail,
   } = useEmailContext();
 
   const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
@@ -151,7 +152,10 @@ export const EmailList: React.FC = () => {
             return (
               <div
                 key={email.id}
-                onClick={() => setSelectedEmailId(email.id)}
+                onClick={() => {
+                  setSelectedEmailId(email.id);
+                  setMobileShowDetail(true);
+                }}
                 className={`group relative p-3.5 cursor-pointer transition-colors ${
                   isSelected
                     ? 'bg-[#F4F4F5]'

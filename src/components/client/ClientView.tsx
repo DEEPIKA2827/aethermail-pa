@@ -316,21 +316,21 @@ export const ClientView: React.FC = () => {
 
                   {/* THREE 1-CLICK EXECUTIVE ACTIONS */}
                   {!isNoteOpen && !isReplyOpen && (
-                    <div className="px-5 py-3 bg-[#FAF9F5] border-t border-[#E6E4DD] flex items-center justify-between gap-2 flex-wrap">
+                    <div className="px-4 sm:px-5 py-3 bg-[#FAF9F5] border-t border-[#E6E4DD] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 w-full">
                       {/* Action 1: Mark as Handled */}
                       <button
                         onClick={() => markAsHandled(email.id)}
-                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-[#F4F4F5] text-[#18181B] text-xs font-medium border border-[#E6E4DD] transition-colors"
+                        className="flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 rounded-lg bg-white hover:bg-[#F4F4F5] text-[#18181B] text-xs font-medium border border-[#E6E4DD] transition-colors w-full sm:w-auto"
                       >
                         <Check className="w-3.5 h-3.5 text-[#059669]" />
                         <span>Mark as Handled</span>
                       </button>
 
-                      <div className="flex items-center gap-2">
+                      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
                         {/* Action 2: Assistant to Take Over */}
                         <button
                           onClick={() => handleOpenTakeOver(email)}
-                          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#F0F7FF] hover:bg-[#DBEAFE] border border-[#BFDBFE] text-[#1D4ED8] text-xs font-semibold transition-colors"
+                          className="flex items-center justify-center gap-1.5 px-3.5 py-2 sm:py-1.5 rounded-lg bg-[#F0F7FF] hover:bg-[#DBEAFE] border border-[#BFDBFE] text-[#1D4ED8] text-xs font-semibold transition-colors w-full sm:w-auto"
                         >
                           <Bot className="w-3.5 h-3.5" />
                           <span>Assistant to Take Over</span>
@@ -339,7 +339,7 @@ export const ClientView: React.FC = () => {
                         {/* Action 3: Quick Personal Reply */}
                         <button
                           onClick={() => handleOpenQuickReply(email)}
-                          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#18181B] hover:bg-[#27272A] text-white text-xs font-semibold shadow-sm transition-all"
+                          className="flex items-center justify-center gap-1.5 px-3.5 py-2 sm:py-1.5 rounded-lg bg-[#18181B] hover:bg-[#27272A] text-white text-xs font-semibold shadow-sm transition-all w-full sm:w-auto"
                         >
                           <Send className="w-3.5 h-3.5" />
                           <span>Quick Personal Reply</span>
@@ -356,8 +356,8 @@ export const ClientView: React.FC = () => {
 
       {/* FULL THREAD HISTORY MODAL */}
       {activeModalEmail && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-in fade-in">
-          <div className="w-full max-w-2xl rounded-2xl border border-[#E6E4DD] bg-white shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/40 backdrop-blur-sm animate-in fade-in">
+          <div className="w-full max-w-[95vw] sm:max-w-2xl rounded-2xl border border-[#E6E4DD] bg-white shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
             <div className="flex items-center justify-between p-4 border-b border-[#E6E4DD] bg-[#FAF9F5]">
               <div>
                 <h3 className="text-sm font-semibold text-[#18181B]">

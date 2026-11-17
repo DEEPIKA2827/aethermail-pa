@@ -3,8 +3,13 @@
 import React from 'react';
 import { useEmailContext } from '@/context/EmailContext';
 import { FilterSegment } from '@/types/email';
+import { X } from 'lucide-react';
 
-export const AssistantSidebar: React.FC = () => {
+interface AssistantSidebarProps {
+  onClose?: () => void;
+}
+
+export const AssistantSidebar: React.FC<AssistantSidebarProps> = ({ onClose }) => {
   const {
     emails,
     selectedClientId,
@@ -14,6 +19,8 @@ export const AssistantSidebar: React.FC = () => {
     setFilterResponsibility,
     setSelectedEmailId,
     selectedEmailId,
+    setIsMobileSidebarOpen,
+    setMobileShowDetail,
   } = useEmailContext();
 
   // Active client scope for count calculations
@@ -72,6 +79,19 @@ export const AssistantSidebar: React.FC = () => {
 
   return (
     <aside className="w-full h-full flex flex-col bg-[#F8F7F4] border-r border-[#E6E4DD] overflow-y-auto no-scrollbar select-none text-xs">
+      {/* Mobile Drawer Header */}
+      {onClose && (
+        <div className="flex items-center justify-between p-3.5 border-b border-[#E6E4DD] bg-white md:hidden">
+          <span className="font-semibold text-xs text-[#18181B]">Inbox Segments</span>
+          <button
+            onClick={onClose}
+            className="p-1 rounded-md text-[#71717A] hover:text-[#18181B] hover:bg-[#F4F4F5] transition-colors"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
+
       {/* Clean compact list */}
       <div className="p-3 space-y-0.5 flex-1">
         {NAV_ITEMS.map((item) => {
@@ -82,6 +102,9 @@ export const AssistantSidebar: React.FC = () => {
               onClick={() => {
                 setFilterSegment(item.id);
                 setFilterResponsibility('all');
+                setIsMobileSidebarOpen(false);
+                setMobileShowDetail(false);
+                if (onClose) onClose();
               }}
               className={`w-full flex items-center justify-between px-3 py-1.5 rounded-md font-medium transition-colors ${
                 isActive
@@ -123,7 +146,12 @@ export const AssistantSidebar: React.FC = () => {
             return (
               <div
                 key={item.emailId}
-                onClick={() => setSelectedEmailId(item.emailId)}
+                onClick={() => {
+                  setSelectedEmailId(item.emailId);
+                  setIsMobileSidebarOpen(false);
+                  setMobileShowDetail(true);
+                  if (onClose) onClose();
+                }}
                 className={`p-2 rounded-md border text-left cursor-pointer transition-all ${
                   isSelected
                     ? 'bg-white border-[#18181B] shadow-sm'

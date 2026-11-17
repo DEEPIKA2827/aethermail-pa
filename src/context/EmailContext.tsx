@@ -54,8 +54,12 @@ interface EmailContextType {
   isSimulateModalOpen: boolean;
   isShortcutsModalOpen: boolean;
   isCopilotOpen: boolean;
+  isMobileSidebarOpen: boolean;
+  mobileShowDetail: boolean;
 
   // Actions
+  setIsMobileSidebarOpen: (open: boolean) => void;
+  setMobileShowDetail: (show: boolean) => void;
   setSelectedClientId: (id: string) => void;
   setSelectedEmailId: (id: string | null) => void;
   setViewMode: (mode: ViewMode) => void;
@@ -181,6 +185,8 @@ export const EmailProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [isSimulateModalOpen, setIsSimulateModalOpen] = useState<boolean>(false);
   const [isShortcutsModalOpen, setIsShortcutsModalOpen] = useState<boolean>(false);
   const [isCopilotOpen, setIsCopilotOpen] = useState<boolean>(false);
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState<boolean>(false);
+  const [mobileShowDetail, setMobileShowDetail] = useState<boolean>(false);
 
   const toggleCopilot = useCallback(() => {
     setIsCopilotOpen((prev) => !prev);
@@ -994,6 +1000,10 @@ export const EmailProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         setIsShortcutsModalOpen,
         setIsCopilotOpen,
         toggleCopilot,
+        isMobileSidebarOpen,
+        setIsMobileSidebarOpen,
+        mobileShowDetail,
+        setMobileShowDetail,
         updateEmail,
         toggleEmailStar,
         toggleEmailRead,

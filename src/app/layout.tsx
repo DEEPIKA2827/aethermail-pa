@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-[#F8F7F4] text-[#18181B] min-h-screen antialiased selection:bg-[#E0E7FF] selection:text-[#1E1B4B]">
+      <body className="bg-[#F8F7F4] text-[#18181B] min-h-screen antialiased selection:bg-[#E0E7FF] selection:text-[#1E1B4B] overflow-x-hidden">
         <EmailProvider>
           {children}
           <ToastContainer />

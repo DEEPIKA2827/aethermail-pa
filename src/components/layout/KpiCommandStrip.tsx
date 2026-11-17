@@ -10,6 +10,7 @@ export const KpiCommandStrip: React.FC = () => {
     setFilterSegment,
     filterResponsibility,
     setFilterResponsibility,
+    setMobileShowDetail,
   } = useEmailContext();
 
   const isTotalActive = filterSegment === 'all' && filterResponsibility === 'all';
@@ -20,17 +21,20 @@ export const KpiCommandStrip: React.FC = () => {
   const isWaitingActive = filterSegment === 'Waiting for Response';
   const isImportantActive = filterSegment === 'important';
 
+  const handlePillClick = (segment: any) => {
+    setFilterSegment(segment);
+    setFilterResponsibility('all');
+    setMobileShowDetail(false);
+  };
+
   return (
-    <div className="h-11 px-4 sm:px-5 bg-white border-b border-[#E6E4DD] flex items-center justify-between text-xs sm:text-sm select-none">
-      {/* Left side: Clean clickable metric pills separated by subtle dividers */}
-      <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar py-1">
+    <div className="h-11 px-3 sm:px-5 bg-white border-b border-[#E6E4DD] flex items-center justify-between text-xs sm:text-sm select-none overflow-hidden">
+      {/* Scrollable Metric Pills Container */}
+      <div className="flex items-center gap-2 sm:gap-1.5 overflow-x-auto whitespace-nowrap no-scrollbar py-1 w-full shrink-0">
         {/* All */}
         <button
-          onClick={() => {
-            setFilterSegment('all');
-            setFilterResponsibility('all');
-          }}
-          className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors ${
+          onClick={() => handlePillClick('all')}
+          className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors shrink-0 ${
             isTotalActive
               ? 'bg-[#18181B] text-white'
               : 'text-[#71717A] hover:text-[#18181B] hover:bg-[#F4F4F5]'
@@ -39,15 +43,12 @@ export const KpiCommandStrip: React.FC = () => {
           All ({kpiMetrics.total})
         </button>
 
-        <span className="text-[#D4D4D8] text-xs">·</span>
+        <span className="text-[#D4D4D8] text-xs shrink-0">·</span>
 
         {/* Unread */}
         <button
-          onClick={() => {
-            setFilterSegment(isUnreadActive ? 'all' : 'unread');
-            setFilterResponsibility('all');
-          }}
-          className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors ${
+          onClick={() => handlePillClick(isUnreadActive ? 'all' : 'unread')}
+          className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors shrink-0 ${
             isUnreadActive
               ? 'bg-[#18181B] text-white'
               : 'text-[#71717A] hover:text-[#18181B] hover:bg-[#F4F4F5]'
@@ -56,15 +57,12 @@ export const KpiCommandStrip: React.FC = () => {
           Unread ({kpiMetrics.unread})
         </button>
 
-        <span className="text-[#D4D4D8] text-xs">·</span>
+        <span className="text-[#D4D4D8] text-xs shrink-0">·</span>
 
         {/* Assistant to Reply */}
         <button
-          onClick={() => {
-            setFilterSegment('Assistant to Reply');
-            setFilterResponsibility('all');
-          }}
-          className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors flex items-center gap-1.5 ${
+          onClick={() => handlePillClick('Assistant to Reply')}
+          className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors flex items-center gap-1.5 shrink-0 ${
             isAssistantActive
               ? 'bg-[#F0F7FF] text-[#1D4ED8] font-semibold border border-[#DBEAFE]'
               : 'text-[#71717A] hover:text-[#1D4ED8] hover:bg-[#F0F7FF]'
@@ -74,15 +72,12 @@ export const KpiCommandStrip: React.FC = () => {
           <span>Assistant to Reply ({kpiMetrics.assistantToReply})</span>
         </button>
 
-        <span className="text-[#D4D4D8] text-xs">·</span>
+        <span className="text-[#D4D4D8] text-xs shrink-0">·</span>
 
         {/* Client to Reply */}
         <button
-          onClick={() => {
-            setFilterSegment('Client to Reply');
-            setFilterResponsibility('all');
-          }}
-          className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors flex items-center gap-1.5 ${
+          onClick={() => handlePillClick('Client to Reply')}
+          className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors flex items-center gap-1.5 shrink-0 ${
             isClientActive
               ? 'bg-[#FFF4ED] text-[#C2410C] font-semibold border border-[#FFEDD5]'
               : 'text-[#71717A] hover:text-[#C2410C] hover:bg-[#FFF4ED]'
@@ -92,15 +87,12 @@ export const KpiCommandStrip: React.FC = () => {
           <span>Client to Reply ({kpiMetrics.clientToReply})</span>
         </button>
 
-        <span className="text-[#D4D4D8] text-xs">·</span>
+        <span className="text-[#D4D4D8] text-xs shrink-0">·</span>
 
         {/* Action Required */}
         <button
-          onClick={() => {
-            setFilterSegment(isActionActive ? 'all' : 'Action Required');
-            setFilterResponsibility('all');
-          }}
-          className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors ${
+          onClick={() => handlePillClick(isActionActive ? 'all' : 'Action Required')}
+          className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors shrink-0 ${
             isActionActive
               ? 'bg-[#18181B] text-white'
               : 'text-[#71717A] hover:text-[#18181B] hover:bg-[#F4F4F5]'
@@ -109,15 +101,12 @@ export const KpiCommandStrip: React.FC = () => {
           Action Required ({kpiMetrics.actionRequired})
         </button>
 
-        <span className="text-[#D4D4D8] text-xs">·</span>
+        <span className="text-[#D4D4D8] text-xs shrink-0">·</span>
 
         {/* Waiting */}
         <button
-          onClick={() => {
-            setFilterSegment(isWaitingActive ? 'all' : 'Waiting for Response');
-            setFilterResponsibility('all');
-          }}
-          className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors ${
+          onClick={() => handlePillClick(isWaitingActive ? 'all' : 'Waiting for Response')}
+          className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors shrink-0 ${
             isWaitingActive
               ? 'bg-[#18181B] text-white'
               : 'text-[#71717A] hover:text-[#18181B] hover:bg-[#F4F4F5]'
@@ -126,15 +115,12 @@ export const KpiCommandStrip: React.FC = () => {
           Waiting ({kpiMetrics.waitingForResponse})
         </button>
 
-        <span className="text-[#D4D4D8] text-xs">·</span>
+        <span className="text-[#D4D4D8] text-xs shrink-0">·</span>
 
         {/* Important */}
         <button
-          onClick={() => {
-            setFilterSegment(isImportantActive ? 'all' : 'important');
-            setFilterResponsibility('all');
-          }}
-          className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors ${
+          onClick={() => handlePillClick(isImportantActive ? 'all' : 'important')}
+          className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors shrink-0 ${
             isImportantActive
               ? 'bg-[#18181B] text-white'
               : 'text-[#71717A] hover:text-[#18181B] hover:bg-[#F4F4F5]'
@@ -144,8 +130,8 @@ export const KpiCommandStrip: React.FC = () => {
         </button>
       </div>
 
-      {/* Right side: Quiet status indicator */}
-      <div className="hidden lg:flex items-center gap-2 text-xs text-[#71717A]">
+      {/* Right side: Quiet status indicator (hidden on smaller screens) */}
+      <div className="hidden lg:flex items-center gap-2 text-xs text-[#71717A] shrink-0 pl-3">
         <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
         <span className="font-mono text-[11px]">Synced · Zero latency</span>
       </div>

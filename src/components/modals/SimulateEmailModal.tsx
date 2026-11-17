@@ -230,8 +230,8 @@ export const SimulateEmailModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-in fade-in">
-      <div className="w-full max-w-2xl rounded-2xl border border-[#E6E4DD] bg-white shadow-2xl overflow-hidden flex flex-col max-h-[92vh] text-[#18181B]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/40 backdrop-blur-sm animate-in fade-in">
+      <div className="w-full max-w-[95vw] sm:max-w-2xl rounded-2xl border border-[#E6E4DD] bg-white shadow-2xl overflow-hidden flex flex-col max-h-[90vh] text-[#18181B]">
         {/* Header */}
         <div className="flex items-center justify-between p-4 sm:p-5 border-b border-[#E6E4DD] bg-[#FAF9F5]">
           <div className="flex items-center gap-2.5">

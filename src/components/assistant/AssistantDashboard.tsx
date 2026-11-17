@@ -6,7 +6,6 @@ import { KpiCommandStrip } from '@/components/layout/KpiCommandStrip';
 import { AssistantSidebar } from '@/components/assistant/AssistantSidebar';
 import { EmailList } from '@/components/email/EmailList';
 import { EmailDetail } from '@/components/email/EmailDetail';
-import { Command, Sparkles, Keyboard, UserCheck } from 'lucide-react';
 
 export const AssistantDashboard: React.FC = () => {
   const {
@@ -19,6 +18,10 @@ export const AssistantDashboard: React.FC = () => {
     setViewMode,
     setIsShortcutsModalOpen,
     toggleCopilot,
+    isMobileSidebarOpen,
+    setIsMobileSidebarOpen,
+    mobileShowDetail,
+    setMobileShowDetail,
   } = useEmailContext();
 
   // Keyboard navigation shortcuts
@@ -47,6 +50,7 @@ export const AssistantDashboard: React.FC = () => {
         const currentIndex = filteredEmails.findIndex((email) => email.id === selectedEmailId);
         if (currentIndex < filteredEmails.length - 1) {
           setSelectedEmailId(filteredEmails[currentIndex + 1].id);
+          setMobileShowDetail(true);
         }
       }
       // K / Up for Prev
@@ -55,6 +59,7 @@ export const AssistantDashboard: React.FC = () => {
         const currentIndex = filteredEmails.findIndex((email) => email.id === selectedEmailId);
         if (currentIndex > 0) {
           setSelectedEmailId(filteredEmails[currentIndex - 1].id);
+          setMobileShowDetail(true);
         }
       }
       // E to Archive
@@ -81,7 +86,7 @@ export const AssistantDashboard: React.FC = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [filteredEmails, selectedEmailId, setSelectedEmailId, archiveEmail, toggleEmailStar, viewMode, setViewMode, setIsShortcutsModalOpen, toggleCopilot]);
+  }, [filteredEmails, selectedEmailId, setSelectedEmailId, archiveEmail, toggleEmailStar, viewMode, setViewMode, setIsShortcutsModalOpen, toggleCopilot, setMobileShowDetail]);
 
   return (
     <div className="flex flex-col flex-1 overflow-hidden h-[calc(100vh-53px)]">
@@ -90,16 +95,31 @@ export const AssistantDashboard: React.FC = () => {
 
       {/* 3-PANE WORKSPACE (MOBILE RESPONSIVE COLLAPSE) */}
       <div className="flex-1 grid grid-cols-1 md:grid-cols-12 overflow-hidden relative">
-        {/* Pane 1: Left Sidebar (Segments & Upcoming Meetings Widget) */}
+        {/* Pane 1: Left Sidebar (Desktop: hidden on mobile, visible on lg) */}
         <div className="hidden lg:block lg:col-span-2 xl:col-span-2 h-full overflow-hidden">
           <AssistantSidebar />
         </div>
 
+        {/* Mobile Slide-Over Drawer for Left Sidebar (< lg) */}
+        {isMobileSidebarOpen && (
+          <div className="fixed inset-0 z-50 lg:hidden flex">
+            {/* Backdrop */}
+            <div
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity"
+              onClick={() => setIsMobileSidebarOpen(false)}
+            />
+            {/* Slide-over Drawer Content */}
+            <div className="relative w-72 max-w-[85vw] h-full bg-[#F8F7F4] shadow-2xl z-10 flex flex-col animate-in slide-in-from-left duration-200">
+              <AssistantSidebar onClose={() => setIsMobileSidebarOpen(false)} />
+            </div>
+          </div>
+        )}
+
         {/* Pane 2: Center Pane (Search, Filters & Email Conversation List) */}
         <div
           className={`${
-            selectedEmailId ? 'hidden md:block' : 'block'
-          } col-span-12 md:col-span-5 lg:col-span-4 xl:col-span-4 h-full overflow-hidden`}
+            mobileShowDetail ? 'hidden md:block' : 'block'
+          } col-span-12 md:col-span-5 lg:col-span-4 xl:col-span-4 h-full overflow-hidden w-full`}
         >
           <EmailList />
         </div>
@@ -107,8 +127,8 @@ export const AssistantDashboard: React.FC = () => {
         {/* Pane 3: Right Pane (Conversation Detail, AI Insights & Approval-Gated Reply Composer) */}
         <div
           className={`${
-            selectedEmailId ? 'block' : 'hidden md:block'
-          } col-span-12 md:col-span-7 lg:col-span-6 xl:col-span-6 h-full overflow-hidden`}
+            mobileShowDetail ? 'block' : 'hidden md:block'
+          } col-span-12 md:col-span-7 lg:col-span-6 xl:col-span-6 h-full overflow-hidden w-full`}
         >
           <EmailDetail />
         </div>

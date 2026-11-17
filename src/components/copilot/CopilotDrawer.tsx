@@ -136,7 +136,7 @@ export const CopilotDrawer: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-white border-l border-[#E6E4DD] shadow-2xl flex flex-col animate-in slide-in-from-right duration-300 text-[#18181B]">
+    <div className="fixed inset-y-0 right-0 z-50 w-full sm:w-[420px] max-w-full bg-white border-l border-[#E6E4DD] shadow-2xl flex flex-col animate-in slide-in-from-right duration-300 text-[#18181B]">
       {/* Header */}
       <div className="p-4 border-b border-[#E6E4DD] bg-[#FAF9F5] flex items-center justify-between">
         <div className="flex items-center gap-2.5">
